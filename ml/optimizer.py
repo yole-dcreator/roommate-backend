@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from ortools.sat.python import cp_model
+from ortools.sat.python import cp_model  # type: ignore
 import os
 
 class RoommateOptimizer:
