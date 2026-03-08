@@ -23,7 +23,7 @@ def add_cors(response):
     return response
 
 # ── Global state (loaded once) ────────────────────────────────
-DATA_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'roommate_dataset_final.csv')
+DATA_PATH = os.path.join(os.path.dirname(__file__), 'data', 'roommate_dataset_final.csv')
 _state = {}
 
 def get_state():
