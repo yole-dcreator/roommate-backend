@@ -20,7 +20,7 @@ CORS(
     app,
     resources={r"/*": {"origins": [
         "http://localhost:3000",      # local dev (adjust port if needed)
-        "https://your-frontend.vercel.app"  # your Vercel URL - replace with actual domain
+        "https://v0-smart-roommate-dashboard-gh2f.vercel.app/"  # your Vercel URL - replace with actual domain
     ]}}
 )
 
