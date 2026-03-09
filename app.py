@@ -7,6 +7,7 @@ import os, json, sys
 sys.path.insert(0, os.path.dirname(__file__))
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from ml.preprocessor import run_pipeline, FEATURE_COLS
 from ml.clustering import find_optimal_k, run_kmeans, get_pca_coords, get_cluster_summary
 from ml.optimizer import RoommateOptimizer
@@ -14,13 +15,14 @@ from ml.eda import run_eda
 
 app = Flask(__name__)
 
-# Allow all origins for local development
-@app.after_request
-def add_cors(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'
-    return response
+# Configure CORS for Vercel frontend and local development
+CORS(
+    app,
+    resources={r"/*": {"origins": [
+        "http://localhost:3000",      # local dev (adjust port if needed)
+        "https://your-frontend.vercel.app"  # your Vercel URL - replace with actual domain
+    ]}}
+)
 
 # ── Global state (loaded once) ────────────────────────────────
 DATA_PATH = os.path.join(os.path.dirname(__file__), 'data', 'roommate_dataset_final.csv')
