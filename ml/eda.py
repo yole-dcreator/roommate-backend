@@ -85,7 +85,51 @@ def get_correlation_matrix(df_enc):
 
 
 def run_eda(df_raw, df_enc):
+
+    # Gender Distribution
+    gender_counts = df_raw['Gender'].value_counts()
+    genderDistribution = [
+        {"name": str(k), "value": int(v)}
+        for k, v in gender_counts.items()
+    ]
+
+    # Study Habits
+    study_counts = df_raw['Preferred study time'].value_counts()
+    studyHabits = [
+        {"habit": str(k), "count": int(v)}
+        for k, v in study_counts.items()
+    ]
+
+    # Sleep Patterns
+    sleep_counts = df_raw['Sleep lights preference'].value_counts()
+    sleepPatterns = [
+        {"pattern": str(k), "count": int(v)}
+        for k, v in sleep_counts.items()
+    ]
+
+    # Cleanliness Levels
+    clean_counts = df_raw['Organize personal space frequency'].value_counts()
+    cleanlinessLevels = [
+        {"level": str(k), "count": int(v)}
+        for k, v in clean_counts.items()
+    ]
+
+    # Academic Levels (used as Age Distribution)
+    level_counts = df_raw['Current academic level'].value_counts().sort_index()
+    ageDistribution = [
+        {"range": str(k), "count": int(v)}
+        for k, v in level_counts.items()
+    ]
+
     return {
+        # charts for frontend
+        "ageDistribution": ageDistribution,
+        "genderDistribution": genderDistribution,
+        "sleepPatterns": sleepPatterns,
+        "studyHabits": studyHabits,
+        "cleanlinessLevels": cleanlinessLevels,
+
+        # existing analytics (keep them)
         'distribution': get_distribution(df_raw),
         'gender': get_gender_breakdown(df_raw),
         'levels': get_level_breakdown(df_raw),
